@@ -105,3 +105,44 @@ print("\n The Test data set are:")
 for x in testing:
     print(x)
 classify(training, testing)
+
+# Output...
+
+#
+# The Training data srt are:
+# ['Sunny', 'Hot', 'High', 'Weak', 'No']
+# ['Sunny', 'Hot', 'High', 'Strong', 'No']
+# ['Overcast', 'Hot', 'High', 'Weak', 'Yes']
+# ['Rain', 'Mild', 'High', 'Weak', 'Yes']
+# ['Rain', 'Cool', 'Normal', 'Weak', 'Yes']
+# ['Rain', 'Cool', 'Normal', 'Strong', 'No']
+# ['Overcast', 'Cool', 'Normal', 'Strong', 'Yes']
+# ['Sunny', 'Mild', 'High', 'Weak', 'No']
+#
+#  The Test data set are:
+# ['Sunny' 'Cool' 'Normal' 'Weak' 'Yes']
+# ['Rain' 'Mild' 'Normal' 'Weak' 'Yes']
+# ['Sunny' 'Mild' 'Normal' 'Strong' 'Yes']
+# ['Overcast' 'Mild' 'High' 'Strong' 'Yes']
+# ['Overcast' 'Hot' 'Normal' 'Weak' 'Yes']
+# ['Rain' 'Mild' 'High' 'Strong' 'No']
+#
+#
+# training data size=  8
+# test data size=  6
+#
+#
+# target count probability
+# Yes 	 4 	 0.5
+# No 	 4 	 0.5
+#
+#
+# instance prediction target
+# 1 	 No 	   Yes
+# 2 	 Yes 	   Yes
+# 3 	 No 	   Yes
+# 4 	 Yes 	   Yes
+# 5 	 Yes 	   Yes
+# 6 	 No 	   No
+# accuracy 66.66666666666666 %
+#

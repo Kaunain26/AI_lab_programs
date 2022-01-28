@@ -37,21 +37,21 @@ class Graph:
         costToChildNodeListDict[minimumCost] = []
         flag = True
         for nodeInfoTupleList in self.getNeighbours(v):
-            print("....nodeInfoTupleList " + str(nodeInfoTupleList))
+            # print("....nodeInfoTupleList " + str(nodeInfoTupleList))
 
             cost = 0
             nodeList = []
             for c, weight in nodeInfoTupleList:
-                print("...c, weight ", c, weight)
+                # print("...c, weight ", c, weight)
 
                 cost = cost + self.getHeuristicNodeValue(c) + weight
                 nodeList.append(c)
-            print("...nodeList and cost ", nodeList, cost)
+            # print("...nodeList and cost ", nodeList, cost)
             if flag == True:
                 minimumCost = cost
                 costToChildNodeListDict[minimumCost] = nodeList
                 flag = False
-                print("...costToChildNodeListDict\n ", costToChildNodeListDict)
+                # print("...costToChildNodeListDict\n ", costToChildNodeListDict)
             else:
                 if minimumCost > cost:
                     minimumCost = cost
@@ -65,19 +65,19 @@ class Graph:
         print("PROCESSING NODE :", v)
         print("....................................................................")
         if self.getStatus(v) >= 0:
-            print("....getStatus " + str(self.getStatus(v)) + "")
+            # print("....getStatus " + str(self.getStatus(v)) + "")
             minimumCost, childNodeList = self.computeMinimumCostChildNode(v)
 
             print(minimumCost, childNodeList)
             self.setHeuristicNodeValue(v, minimumCost)
             self.setStatus(v, len(childNodeList))
-            print("len-childNodeList: " + str(len(childNodeList)))
+            # print("len-childNodeList: " + str(len(childNodeList)))
 
             solved = True
             for childNode in childNodeList:
-                print("childNode from childNodeList: " + childNode)
+                # print("childNode from childNodeList: " + childNode)
                 self.parent[childNode] = v
-                print("parentNode: " , self.parent)
+                # print("parentNode: ", self.parent)
                 if self.getStatus(childNode) != 1:
                     solved = solved & False
             if solved == True:
@@ -104,3 +104,101 @@ graph1 = {
 G1 = Graph(graph1, h1, 'A')
 G1.applyAOStar()
 G1.printSolution()
+
+# output
+
+# Graph - 1
+#
+# HEURISTIC VALUES : {'A': 1, 'B': 6, 'C': 2, 'D': 12, 'E': 2, 'F': 1, 'G': 5, 'H': 7, 'I': 7, 'J': 1}
+# SOLUTION GRAPH : {}
+# PROCESSING NODE : A
+# ....................................................................
+# 10 ['B', 'C']
+#
+# HEURISTIC VALUES : {'A': 10, 'B': 6, 'C': 2, 'D': 12, 'E': 2, 'F': 1, 'G': 5, 'H': 7, 'I': 7, 'J': 1}
+# SOLUTION GRAPH : {}
+# PROCESSING NODE : B
+# ....................................................................
+# 6 ['G']
+#
+# HEURISTIC VALUES : {'A': 10, 'B': 6, 'C': 2, 'D': 12, 'E': 2, 'F': 1, 'G': 5, 'H': 7, 'I': 7, 'J': 1}
+# SOLUTION GRAPH : {}
+# PROCESSING NODE : A
+# ....................................................................
+# 10 ['B', 'C']
+#
+# HEURISTIC VALUES : {'A': 10, 'B': 6, 'C': 2, 'D': 12, 'E': 2, 'F': 1, 'G': 5, 'H': 7, 'I': 7, 'J': 1}
+# SOLUTION GRAPH : {}
+# PROCESSING NODE : G
+# ....................................................................
+# 8 ['I']
+#
+# HEURISTIC VALUES : {'A': 10, 'B': 6, 'C': 2, 'D': 12, 'E': 2, 'F': 1, 'G': 8, 'H': 7, 'I': 7, 'J': 1}
+# SOLUTION GRAPH : {}
+# PROCESSING NODE : B
+# ....................................................................
+# 8 ['H']
+#
+# HEURISTIC VALUES : {'A': 10, 'B': 8, 'C': 2, 'D': 12, 'E': 2, 'F': 1, 'G': 8, 'H': 7, 'I': 7, 'J': 1}
+# SOLUTION GRAPH : {}
+# PROCESSING NODE : A
+# ....................................................................
+# 12 ['B', 'C']
+#
+# HEURISTIC VALUES : {'A': 12, 'B': 8, 'C': 2, 'D': 12, 'E': 2, 'F': 1, 'G': 8, 'H': 7, 'I': 7, 'J': 1}
+# SOLUTION GRAPH : {}
+# PROCESSING NODE : I
+# ....................................................................
+# 0 []
+#
+# HEURISTIC VALUES : {'A': 12, 'B': 8, 'C': 2, 'D': 12, 'E': 2, 'F': 1, 'G': 8, 'H': 7, 'I': 0, 'J': 1}
+# SOLUTION GRAPH : {'I': []}
+# PROCESSING NODE : G
+# ....................................................................
+# 1 ['I']
+#
+# HEURISTIC VALUES : {'A': 12, 'B': 8, 'C': 2, 'D': 12, 'E': 2, 'F': 1, 'G': 1, 'H': 7, 'I': 0, 'J': 1}
+# SOLUTION GRAPH : {'I': []}
+# PROCESSING NODE : B
+# ....................................................................
+# 2 ['G']
+#
+# HEURISTIC VALUES : {'A': 12, 'B': 2, 'C': 2, 'D': 12, 'E': 2, 'F': 1, 'G': 1, 'H': 7, 'I': 0, 'J': 1}
+# SOLUTION GRAPH : {'I': [], 'B': ['G']}
+# PROCESSING NODE : A
+# ....................................................................
+# 6 ['B', 'C']
+#
+# HEURISTIC VALUES : {'A': 6, 'B': 2, 'C': 2, 'D': 12, 'E': 2, 'F': 1, 'G': 1, 'H': 7, 'I': 0, 'J': 1}
+# SOLUTION GRAPH : {'I': [], 'B': ['G']}
+# PROCESSING NODE : C
+# ....................................................................
+# 2 ['J']
+#
+# HEURISTIC VALUES : {'A': 6, 'B': 2, 'C': 2, 'D': 12, 'E': 2, 'F': 1, 'G': 1, 'H': 7, 'I': 0, 'J': 1}
+# SOLUTION GRAPH : {'I': [], 'B': ['G']}
+# PROCESSING NODE : A
+# ....................................................................
+# 6 ['B', 'C']
+#
+# HEURISTIC VALUES : {'A': 6, 'B': 2, 'C': 2, 'D': 12, 'E': 2, 'F': 1, 'G': 1, 'H': 7, 'I': 0, 'J': 1}
+# SOLUTION GRAPH : {'I': [], 'B': ['G']}
+# PROCESSING NODE : J
+# ....................................................................
+# 0 []
+#
+# HEURISTIC VALUES : {'A': 6, 'B': 2, 'C': 2, 'D': 12, 'E': 2, 'F': 1, 'G': 1, 'H': 7, 'I': 0, 'J': 0}
+# SOLUTION GRAPH : {'I': [], 'B': ['G'], 'J': []}
+# PROCESSING NODE : C
+# ....................................................................
+# 1 ['J']
+#
+# HEURISTIC VALUES : {'A': 6, 'B': 2, 'C': 1, 'D': 12, 'E': 2, 'F': 1, 'G': 1, 'H': 7, 'I': 0, 'J': 0}
+# SOLUTION GRAPH : {'I': [], 'B': ['G'], 'J': []}
+# PROCESSING NODE : A
+# ....................................................................
+# 5 ['B', 'C']
+# FOR GRAPH SOLUTION , TRAVERSE THE GRAPH FROM THE START NODE A
+# ..................................................
+# {'I': [], 'B': ['G'], 'J': []}
+# ..................................................#

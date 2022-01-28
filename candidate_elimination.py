@@ -1,14 +1,14 @@
 import numpy as np
 import pandas as pd
 
-data = pd.read_csv('venv/enjoysport.csv')
+data = pd.read_csv('enjoysport.csv')
 concepts = np.array(data.iloc[:, 0:-1])
 print("\nInstances are :\n", concepts)
 target = np.array(data.iloc[:, -1])
 print("\nTarget Values are: ", target)
 
 
-def learn(concept, target):
+def learn(concepts, target):
     specific_h = concepts[0].copy()
     print("\nInitialization of specific_h and general_h")
     print("\nSpecific Boundary: ", specific_h)
@@ -46,3 +46,50 @@ s_final, g_final = learn(concepts, target)
 
 print("Final Specif_h: ", s_final, sep="\n")
 print("Final General_h ", g_final, sep="\n")
+
+# .....................................output.......................................................
+#  Instances are :
+#  [['sunny' 'warm' 'normal' 'strong' 'warm' 'same']
+#  ['sunny' 'warm' 'high' 'strong' 'warm' 'same']
+#  ['rainy' 'cold' 'high' 'strong' 'warm' 'change']
+#  ['sunny' 'warm' 'high' 'strong' 'cool' 'change']]
+#
+# Target Values are:  ['yes' 'yes' 'no' 'yes']
+#
+# Initialization of specific_h and general_h
+#
+# Specific Boundary:  ['sunny' 'warm' 'normal' 'strong' 'warm' 'same']
+#
+# Generic Boundary:  [['?', '?', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', '?']]
+#
+# Instances 1 is  ['sunny' 'warm' 'normal' 'strong' 'warm' 'same']
+# Instances is Positive
+# Specific Boundary after  1 Instances is  ['sunny' 'warm' 'normal' 'strong' 'warm' 'same']
+# Generic Boundary after  1 Instances is  [['?', '?', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', '?']]
+#
+#
+#
+# Instances 2 is  ['sunny' 'warm' 'high' 'strong' 'warm' 'same']
+# Instances is Positive
+# Specific Boundary after  2 Instances is  ['sunny' 'warm' '?' 'strong' 'warm' 'same']
+# Generic Boundary after  2 Instances is  [['?', '?', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', '?']]
+#
+#
+#
+# Instances 3 is  ['rainy' 'cold' 'high' 'strong' 'warm' 'change']
+# Instance is Negative
+# Specific Boundary after  3 Instances is  ['sunny' 'warm' '?' 'strong' 'warm' 'same']
+# Generic Boundary after  3 Instances is  [['sunny', '?', '?', '?', '?', '?'], ['?', 'warm', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', 'same']]
+#
+#
+#
+# Instances 4 is  ['sunny' 'warm' 'high' 'strong' 'cool' 'change']
+# Instances is Positive
+# Specific Boundary after  4 Instances is  ['sunny' 'warm' '?' 'strong' '?' '?']
+# Generic Boundary after  4 Instances is  [['sunny', '?', '?', '?', '?', '?'], ['?', 'warm', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', '?']]
+#
+#
+# Final Specif_h:
+# ['sunny' 'warm' '?' 'strong' '?' '?']
+# Final General_h
+# [['sunny', '?', '?', '?', '?', '?'], ['?', 'warm', '?', '?', '?', '?']]
