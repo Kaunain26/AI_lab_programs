@@ -1,9 +1,10 @@
 import numpy as np
 
-X = np.array(([1, 9], [5, 5], [2, 6]), dtype=float)
+X = np.array(([2,9], [1, 5], [3, 6]), dtype=float)
 y = np.array(([92], [86], [89]), dtype=float)
 X = X / np.amax(X, axis=0)  # maximum of X array longitudinally
 y = y / 100
+
 
 def sigmoid(x):
     return 1 / (1 + np.exp(-x))  # (1 / 1+e^-x)
@@ -13,7 +14,7 @@ def derivatives_sigmoid(x):
     return x * (1 - x)
 
 
-epoch = 5000
+epoch = 1000
 lr = 0.1
 inputlayer_neurns = 2
 
@@ -52,7 +53,6 @@ wh += X.T.dot(d_hiddenlayer) * lr
 print("Input: \n" + str(X))
 print("Actual Output: \n" + str(y))
 print("Predicted Output: \n", output)
-
 
 #   output............
 # Input:

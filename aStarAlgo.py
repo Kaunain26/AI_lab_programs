@@ -6,11 +6,24 @@ def aStarAlgo(start_node, stop_node):
     g[start_node] = 0
     parents[start_node] = start_node
 
+    print("open_set", open_set)
+    print("closed_set", closed_set)
+    print("\ngraph", g)
+    print("\nparents", parents)
+
     while len(open_set) > 0:
+        print("\n..new_open_set", open_set)
+        print("closed_set", closed_set)
+        print("parent_set", parents)
+        print("graph", g, "\n")
+
         n = None
         for v in open_set:
+            # if (n != None):
+            #   print(heuristic(v))
             if n == None or g[v] + heuristic(v) < g[n] + heuristic(n):
                 n = v
+                # print(n)
 
         if n == stop_node or Graph_nodes[n] == None:
             pass
@@ -22,6 +35,7 @@ def aStarAlgo(start_node, stop_node):
                     g[m] = g[n] + weight
 
                 else:
+                    print("..........")
                     if g[m] > g[n] + weight:
                         g[m] = g[n] + weight
                         parents[m] = n
@@ -45,6 +59,7 @@ def aStarAlgo(start_node, stop_node):
             print('Path found: {}'.format(path))
             return path
 
+        # print(n)
         open_set.remove(n)
         closed_set.add(n)
 

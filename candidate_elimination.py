@@ -20,9 +20,13 @@ def learn(concepts, target):
         if target[i] == "yes":
             print("Instances is Positive")
             for x in range(len(specific_h)):
+                # print(h[x] != specific_h , "   .....")
                 if h[x] != specific_h[x]:
+                    #    print("...",x)
                     specific_h[x] = '?'
                     general_h[x][x] = '?'
+
+                    # print(specific_h +"  .....")
 
         if target[i] == "no":
             print("Instance is Negative")
@@ -32,6 +36,7 @@ def learn(concepts, target):
                 else:
                     general_h[x][x] = '?'
 
+        # print(specific_h + " a dad")
         print("Specific Boundary after ", i + 1, "Instances is ", specific_h)
         print("Generic Boundary after ", i + 1, "Instances is ", general_h)
         print("\n")

@@ -19,7 +19,7 @@ def entropy(probs):
 def entropy_of_list(ls, value):
     from collections import Counter
     cnt = Counter(x for x in ls)
-    print("target attribute class count(Yes/No)=", dict(cnt))
+    print("\ntarget attribute class count(Yes/No)=", dict(cnt))
     total_instances = len(ls)
     print("Total no of instances/records associated with {0} is: {1}".format(value, total_instances))
     probs = [x / total_instances for x in cnt.values()]
