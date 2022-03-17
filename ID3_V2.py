@@ -33,7 +33,7 @@ def id3(_tennis, target, _names):
         return next(iter(count))  # next input data set, or raises StopIteration when EOF is hit
     else:
         gain = [information_gain(_tennis, attr, target) for attr in _names]
-        print("Gain=", gain)
+        print("Gain= ", gain)
         maximum = gain.index(max(gain))  # get index from max gain
         best = _names[maximum]  # use that index to get name
         print("Best Attribute:", best)
