@@ -6,26 +6,25 @@ def aStarAlgo(start_node, stop_node):
     g[start_node] = 0
     parents[start_node] = start_node
 
-    print("open_set", open_set)
-    print("closed_set", closed_set)
-    print("\ngraph", g)
-    print("\nparents", parents)
+    # print("open_set", open_set)
+    # print("closed_set", closed_set)
+    # print("\ngraph", g)
+    # print("\nparents", parents)
 
     while len(open_set) > 0:
-        print("\n..new_open_set", open_set)
-        print("closed_set", closed_set)
-        print("parent_set", parents)
-        print("graph", g, "\n")
+        # print("\n..new_open_set", open_set)
+        # print("closed_set", closed_set)
+        # print("parent_set", parents)
+        # print("graph", g, "\n")
 
         n = None
         for v in open_set:
             # if (n != None):
-            #   print(heuristic(v))
-            if n == None or g[v] + heuristic(v) < g[n] + heuristic(n):
+            if n is None or g[v] + heuristic(v) < g[n] + heuristic(n):
                 n = v
                 # print(n)
 
-        if n == stop_node or Graph_nodes[n] == None:
+        if n == stop_node or Graph_nodes[n] is None:
             pass
         else:
             for (m, weight) in get_neighbors(n):
@@ -35,7 +34,7 @@ def aStarAlgo(start_node, stop_node):
                     g[m] = g[n] + weight
 
                 else:
-                    print("..........")
+                    # print("..........")
                     if g[m] > g[n] + weight:
                         g[m] = g[n] + weight
                         parents[m] = n
@@ -44,7 +43,7 @@ def aStarAlgo(start_node, stop_node):
                             closed_set.remove(m)
                             open_set.add(m)
 
-        if n == None:
+        if n is None:
             print('Path does not exist!')
             return None
 
@@ -52,6 +51,7 @@ def aStarAlgo(start_node, stop_node):
             path = []
 
             while parents[n] != n:
+                # print(parents[n]+" .... ", n)
                 path.append(n)
                 n = parents[n]
             path.append(start_node)

@@ -4,13 +4,17 @@ import pandas as pd
 
 tou = 0.5
 data = pd.read_csv("regression.csv")
+
 X_train = np.array(data.total_bill)
 print(X_train)
 X_train = X_train[:, np.newaxis]
 print(len(X_train))
+
 y_train = np.array(data.tip)
+
 x_test = np.array([i / 10 for i in range(500)])
 x_test = x_test[:, np.newaxis]
+
 y_test = []
 count = 0
 for r in range(len(x_test)):

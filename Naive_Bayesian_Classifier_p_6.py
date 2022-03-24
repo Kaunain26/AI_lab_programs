@@ -18,6 +18,7 @@ def read_data(filename):
 
 def splitDataset(dataset, splitRatio):
     trainSize = int(len(dataset) * splitRatio)
+
     trainSet = []
     testset = list(dataset)
     i = 0
@@ -26,45 +27,48 @@ def splitDataset(dataset, splitRatio):
     return [trainSet, testset]
 
 
-def classify(data, test):
-    total_size = data.shape[0]
+def classify(trainData, testData):
+    total_size = trainData.shape[0]
     print("\n")
     print("training data size= ", total_size)
-    print("test data size= ", test.shape[0])
+    print("test data size= ", testData.shape[0])
 
     countYes = 0
     countNo = 0
-    probYes = 0
-    probNo = 0
     print("\n")
     print("target count probability")
 
-    for x in range(data.shape[0]):
-        if data[x, data.shape[1] - 1] == 'Yes':
+    # counting total yes and no in training data
+    for x in range(trainData.shape[0]):
+        if trainData[x, trainData.shape[1] - 1] == 'Yes':
             countYes += 1
-        if data[x, data.shape[1] - 1] == 'No':
+        if trainData[x, trainData.shape[1] - 1] == 'No':
             countNo += 1
+
+    # calculate probability of yes and no
     probYes = countYes / total_size
     probNo = countNo / total_size
 
     print('Yes', "\t", countYes, "\t", probYes)
     print('No', "\t", countNo, "\t", probNo)
 
-    prob0 = np.zeros((test.shape[1] - 1))
-    prob1 = np.zeros(test.shape[1] - 1)
+    prob0 = np.zeros((testData.shape[1] - 1))
+    prob1 = np.zeros(testData.shape[1] - 1)
+    print("prob0 nd prob1", prob0, prob1)
     accuracy = 0
     print("\n")
     print("instance prediction target")
 
-    for t in range(test.shape[0]):
-        for k in range(test.shape[1] - 1):
+    for t in range(testData.shape[0]):  # 6
+        for k in range(testData.shape[1] - 1):  # 4
             count1 = count0 = 0
-            for j in range(data.shape[0]):
+            for j in range(trainData.shape[0]):  # 8
                 # how many times appeared with no
-                if test[t, k] == data[j, k] and data[j, data.shape[1] - 1] == 'No':
+                # Ex: test[0,0] = Sunny , data[0,0] = Sunny
+                if testData[t, k] == trainData[j, k] and trainData[j, trainData.shape[1] - 1] == 'No':
                     count0 += 1
                 # how many times appeared with yes
-                if test[t, k] == data[j, k] and data[j, data.shape[1] - 1] == 'Yes':
+                if testData[t, k] == trainData[j, k] and trainData[j, trainData.shape[1] - 1] == 'Yes':
                     count1 += 1
 
             if countNo != 0:
@@ -75,19 +79,19 @@ def classify(data, test):
         probno = probNo
         probyes = probYes
 
-        for i in range(test.shape[1] - 1):
-            probno = probno * prob0[i]
+        for i in range(testData.shape[1] - 1):  # 4
+            probno = probno * prob0[i]  # 0.5 * [0.5,0.2,0.8,0.6] multiplied with each one
             probyes = probyes * prob1[i]
         if probno > probyes:
             predict = 'No'
         else:
             predict = 'Yes'
 
-        print(t + 1, "\t", predict, "\t  ", test[t, test.shape[1] - 1])
-        if predict == test[t, test.shape[1] - 1]:
+        print(t + 1, "\t", predict, "\t  ", testData[t, testData.shape[1] - 1])
+        if predict == testData[t, testData.shape[1] - 1]:
             accuracy += 1
 
-    final_accuracy = (accuracy / test.shape[0]) * 100
+    final_accuracy = (accuracy / testData.shape[0]) * 100
     print("accuracy", final_accuracy, "%")
     return
 
@@ -96,7 +100,7 @@ metadata, traindata = read_data("PlayTennis.csv")
 splitRatio = 0.6
 trainingset, testset = splitDataset(traindata, splitRatio)
 training = np.array(trainingset)
-print("\n The Training data srt are:")
+print("\n The Training data set are:")
 for x in trainingset:
     print(x)
 

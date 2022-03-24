@@ -9,10 +9,11 @@ print("\nTarget Values are: ", target)
 
 
 def learn(concepts, target):
-    specific_h = concepts[0].copy()
+    # print("specific_h: ", specific_h)
     print("\nInitialization of specific_h and general_h")
+    specific_h = concepts[0].copy()
     print("\nSpecific Boundary: ", specific_h)
-    general_h = [["?" for i in range(len(specific_h))] for i in range(len(specific_h))]
+    general_h = [["?" for _ in range(len(specific_h))] for _ in range(len(specific_h))]
     print("\nGeneric Boundary: ", general_h)
 
     for i, h in enumerate(concepts):
@@ -20,13 +21,9 @@ def learn(concepts, target):
         if target[i] == "yes":
             print("Instances is Positive")
             for x in range(len(specific_h)):
-                # print(h[x] != specific_h , "   .....")
                 if h[x] != specific_h[x]:
-                    #    print("...",x)
                     specific_h[x] = '?'
                     general_h[x][x] = '?'
-
-                    # print(specific_h +"  .....")
 
         if target[i] == "no":
             print("Instance is Negative")
@@ -42,15 +39,16 @@ def learn(concepts, target):
         print("\n")
 
     indices = [i for i, val in enumerate(general_h) if val == ['?', '?', '?', '?', '?', '?']]
-    for i in indices:
+    for _ in indices:
         general_h.remove(['?', '?', '?', '?', '?', '?'])
+
     return specific_h, general_h
 
 
 s_final, g_final = learn(concepts, target)
 
-print("Final Specif_h: ", s_final, sep="\n")
-print("Final General_h ", g_final, sep="\n")
+print("Final Specif_h: ", s_final)
+print("Final General_h ", g_final)
 
 # .....................................output.......................................................
 #  Instances are :
